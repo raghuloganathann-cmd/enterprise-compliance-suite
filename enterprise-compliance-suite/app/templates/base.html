@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Enterprise Compliance Suite{% endblock %}</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <div class="ledger-frame">
+    <header class="masthead">
+      <div class="masthead-mark">EC/S</div>
+      <div class="masthead-text">
+        <h1>Enterprise Compliance Suite</h1>
+        <p class="masthead-sub">Policy &middot; Requirements &middot; Audit &middot; Risk register</p>
+      </div>
+      <div class="masthead-stamp">BASE&nbsp;BUILD</div>
+    </header>
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="ledger-footer">
+      <span>Reference implementation &mdash; extend per your governance model</span>
+      <span>/health &middot; /docs</span>
+    </footer>
+  </div>
+</body>
+</html>

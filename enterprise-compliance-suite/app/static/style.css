@@ -1,0 +1,221 @@
+/* Enterprise Compliance Suite — "audit ledger" visual system
+   Palette: ink #1B2028, slate #2E3542, paper #EDEBE4, rule #C9C3B4, signal amber #B8863B, alert #A63D40
+   Type: serif display (Georgia stack) for headings — evokes a bound register;
+         monospace for identifiers/data (status, versions, dates);
+         system sans for body copy. */
+
+:root {
+  --ink: #1B2028;
+  --slate: #2E3542;
+  --paper: #EDEBE4;
+  --paper-raised: #F7F5EF;
+  --rule: #C9C3B4;
+  --amber: #B8863B;
+  --alert: #A63D40;
+  --green: #4C6B4F;
+  --muted: #7A7568;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.ledger-frame {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 2.5rem 1.75rem 4rem;
+}
+
+/* Masthead */
+.masthead {
+  display: flex;
+  align-items: center;
+  gap: 1.1rem;
+  border-bottom: 3px solid var(--ink);
+  padding-bottom: 1.1rem;
+  margin-bottom: 2.25rem;
+}
+
+.masthead-mark {
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 700;
+  font-size: 1.6rem;
+  letter-spacing: 0.02em;
+  border: 2px solid var(--ink);
+  padding: 0.3rem 0.55rem;
+  line-height: 1;
+}
+
+.masthead-text h1 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.65rem;
+  font-weight: 700;
+  margin: 0 0 0.15rem;
+  letter-spacing: -0.01em;
+}
+
+.masthead-sub {
+  margin: 0;
+  font-size: 0.82rem;
+  color: var(--muted);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.masthead-stamp {
+  margin-left: auto;
+  font-family: "SF Mono", Consolas, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  color: var(--amber);
+  border: 1px solid var(--amber);
+  padding: 0.3rem 0.6rem;
+  transform: rotate(-2deg);
+  white-space: nowrap;
+}
+
+/* Stat row */
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: var(--paper-raised);
+  padding: 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.stat-figure {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.stat-label {
+  font-size: 0.76rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.stat-card--alert .stat-figure { color: var(--alert); }
+
+/* Panels */
+.panel-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.panel--wide { grid-column: 1 / -1; }
+
+.panel {
+  background: var(--paper-raised);
+  border: 1px solid var(--rule);
+}
+
+.panel-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0.9rem 1.1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.panel-head h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.05rem;
+  margin: 0;
+}
+
+.panel-link {
+  font-size: 0.75rem;
+  color: var(--amber);
+  text-decoration: none;
+  letter-spacing: 0.02em;
+}
+.panel-link:hover { text-decoration: underline; }
+
+.ledger-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+
+.ledger-table th {
+  text-align: left;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  font-weight: 600;
+  padding: 0.55rem 1.1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.ledger-table td {
+  padding: 0.6rem 1.1rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.ledger-table tr:last-child td { border-bottom: none; }
+
+.mono { font-family: "SF Mono", Consolas, monospace; font-size: 0.8rem; color: var(--slate); }
+
+.pill {
+  display: inline-block;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid var(--rule);
+  text-transform: capitalize;
+  color: var(--slate);
+}
+
+.pill--active, .pill--met, .pill--completed { border-color: var(--green); color: var(--green); }
+.pill--not_met, .pill--critical { border-color: var(--alert); color: var(--alert); }
+.pill--in_progress, .pill--draft { border-color: var(--amber); color: var(--amber); }
+
+.pill--sev-high, .pill--sev-critical { border-color: var(--alert); color: var(--alert); }
+.pill--sev-medium { border-color: var(--amber); color: var(--amber); }
+.pill--sev-low { border-color: var(--green); color: var(--green); }
+
+.empty {
+  padding: 1.5rem 1.1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.empty code {
+  font-family: "SF Mono", Consolas, monospace;
+  background: var(--paper);
+  padding: 0.1rem 0.3rem;
+}
+
+.ledger-footer {
+  margin-top: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--muted);
+  border-top: 1px solid var(--rule);
+  padding-top: 0.9rem;
+  font-family: "SF Mono", Consolas, monospace;
+}
+
+@media (max-width: 720px) {
+  .stat-row { grid-template-columns: repeat(2, 1fr); }
+  .panel-grid { grid-template-columns: 1fr; }
+}

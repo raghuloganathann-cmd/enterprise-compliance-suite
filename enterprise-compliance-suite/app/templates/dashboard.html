@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="stat-row">
+  <div class="stat-card">
+    <span class="stat-figure">{{ stats.total_policies }}</span>
+    <span class="stat-label">Policies on record</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-figure">{{ stats.met_requirements }}/{{ stats.total_requirements }}</span>
+    <span class="stat-label">Requirements met</span>
+  </div>
+  <div class="stat-card">
+    <span class="stat-figure">{{ stats.open_audits }}</span>
+    <span class="stat-label">Audits in flight</span>
+  </div>
+  <div class="stat-card stat-card--flag {% if stats.high_risks > 0 %}stat-card--alert{% endif %}">
+    <span class="stat-figure">{{ stats.high_risks }}</span>
+    <span class="stat-label">High/critical risks open</span>
+  </div>
+</section>
+
+<section class="panel-grid">
+
+  <article class="panel">
+    <div class="panel-head">
+      <h2>Policy register</h2>
+      <a class="panel-link" href="/docs#/Policies">manage &rarr;</a>
+    </div>
+    {% if policies %}
+    <table class="ledger-table">
+      <thead>
+        <tr><th>Title</th><th>Category</th><th>Ver.</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for p in policies %}
+        <tr>
+          <td>{{ p.title }}</td>
+          <td>{{ p.category }}</td>
+          <td class="mono">{{ p.version }}</td>
+          <td><span class="pill pill--{{ p.status }}">{{ p.status }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No policies recorded yet. Add one via <code>/docs</code>.</p>
+    {% endif %}
+  </article>
+
+  <article class="panel">
+    <div class="panel-head">
+      <h2>Risk register</h2>
+      <a class="panel-link" href="/docs#/Risk%20Register">manage &rarr;</a>
+    </div>
+    {% if risks %}
+    <table class="ledger-table">
+      <thead>
+        <tr><th>Item</th><th>Category</th><th>Severity</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+        {% for r in risks %}
+        <tr>
+          <td>{{ r.title }}</td>
+          <td>{{ r.category }}</td>
+          <td><span class="pill pill--sev-{{ r.severity }}">{{ r.severity }}</span></td>
+          <td>{{ r.status }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No risks logged yet.</p>
+    {% endif %}
+  </article>
+
+  <article class="panel panel--wide">
+    <div class="panel-head">
+      <h2>Audit schedule</h2>
+      <a class="panel-link" href="/docs#/Audits">manage &rarr;</a>
+    </div>
+    {% if audits %}
+    <table class="ledger-table">
+      <thead>
+        <tr><th>Audit</th><th>Type</th><th>Status</th><th>Scheduled</th><th>Lead</th></tr>
+      </thead>
+      <tbody>
+        {% for a in audits %}
+        <tr>
+          <td>{{ a.name }}</td>
+          <td>{{ a.audit_type }}</td>
+          <td><span class="pill pill--{{ a.status }}">{{ a.status }}</span></td>
+          <td class="mono">{{ a.scheduled_date or "—" }}</td>
+          <td>{{ a.lead_auditor or "—" }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="empty">No audits scheduled yet.</p>
+    {% endif %}
+  </article>
+
+</section>
+
+{% endblock %}
